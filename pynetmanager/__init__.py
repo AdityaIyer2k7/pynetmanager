@@ -21,6 +21,7 @@ TODO:
   - Close socket
 """
 
-from .NetCallback import NetCallback
-from .SvrManager import SvrManager
-from .CliManager import CliManager
+from pynetmanager.NetCallback import *
+from pynetmanager.RawSockManager import *
+from pynetmanager.SvrManager import *
+from pynetmanager.CliManager import *
