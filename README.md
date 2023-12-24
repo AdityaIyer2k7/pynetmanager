@@ -122,7 +122,7 @@ Setup the client:
 from pynetmanager import CliManager, deafult_socket_inet_stream
 
 client_socket = deafult_socket_inet_stream()
-server_address = ("127.0.0.1", 5500) # Note that we use the server's address here since that is what we are connecting to
+server_address = ("127.0.0.1", 5500) # Note that we use the server's address here
 client = CliManager(client_socket, server_address)
 ```
 
@@ -138,12 +138,19 @@ client.connCallbacks += myConnCallbacks
 
 Connect the client:
 ```py
-client.bind()
+client.connect()
 ```
 
-To access the queue of received messages
+To access the queue of received messages:
 ```py
 client.recvQueue
 # OUTPUT:
 # <multiprocessing.queues.Queue object at ...>
+```
+
+To send a message to the server:
+```py
+# Calls `conn.send` by defualt.
+# If blocking is True, the send function runs on the same thread; else a new thread is created
+client.send(b'Hello there!', blocking=False)
 ```
