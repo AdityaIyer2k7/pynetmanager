@@ -1,4 +1,5 @@
 from multiprocessing import Queue
+from threading import Thread
 from typing import Tuple, Iterable
 from socket import socket
 
@@ -50,6 +51,15 @@ class CliManager(RawSockManager):
             recvData = conn.recv(1)
             queues[0].put(recvData)
     
+    def send(self, message:bytes, blocking:bool=True):
+        if not blocking:
+            self._conn.send(message)
+            return None
+        else:
+            thread = Thread(target=self._conn.send, args=(message,))
+            thread.start()
+            return thread
+
     def close(self, wipeRecvQueue:bool=False):
         '''
         Close the connection with the serevr.
